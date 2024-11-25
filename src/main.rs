@@ -13,8 +13,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 加载配置
     let config = load_config("config.yaml")?;
 
-    println!("{:?}", config);
-
     // 遍历收件人列表
     for recipient in &config.recipients {
         // 创建邮件上下文

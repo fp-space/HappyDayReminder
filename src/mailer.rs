@@ -25,6 +25,16 @@ pub async fn send_email(config: &Config, recipient: &Recipient, content: &str) -
         .build();
 
     // 发送邮件
-    mailer.send(&email).await?;
-    Ok(())
+    let result = mailer.send(&email);
+
+    match result {
+        Ok(response) => {
+            println!("Email sent successfully: {:?}", response);
+            Ok(())
+        }
+        Err(err) => {
+            println!("Error sending email: {:?}", err);
+            Err(Box::new(err))
+        }
+    }
 }
