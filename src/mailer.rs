@@ -19,6 +19,7 @@ pub async fn send_email(config: &Config, recipient: &Recipient, content: &str) -
 
     // SMTP 客户端配置
     let creds = Credentials::new(smtp_username.to_string(), smtp_password.to_string());
+
     let mailer = SmtpTransport::relay(smtp_host)?
         .port(smtp_port)
         .credentials(creds)

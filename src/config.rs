@@ -8,6 +8,8 @@ pub struct SmtpConfig {
     pub username: String,
     pub password: String,
     pub from_email: String,
+    pub mode: String,
+    pub reminder_days: i64
 }
 
 #[derive(Debug, Deserialize)]

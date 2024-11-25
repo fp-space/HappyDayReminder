@@ -1,6 +1,19 @@
-Hello {{name}},
+{{#if is_summary}}
+    Hello,
 
-This is an email template. We are sending this to let you know about an important update.
+    Here is the list of upcoming birthdays within {{reminder_days}} days:
 
-Best regards,
-Your Company
+    {{#each birthdays}}
+        - {{name}} ({{email}})
+    {{/each}}
+
+    Best regards,
+    Your Reminder Service
+{{else}}
+    Dear {{name}},
+
+    Happy Birthday to you! 🎉
+
+    Best wishes,
+    Your Reminder Service
+{{/if}}
