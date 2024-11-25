@@ -1,11 +1,11 @@
-use lettre::{SmtpTransport, Transport};
+use crate::config::{Config, Recipient};
 use lettre::message::{Mailbox, Message};
 use lettre::transport::smtp::authentication::Credentials;
-use crate::config::{Config, Recipient};
+use lettre::{SmtpTransport, Transport};
 
-pub async fn send_email(config: &Config, recipient: &Recipient, content: &str) -> Result<(), Box<dyn std::error::Error>> {
+pub fn send_email(config: &Config, recipient: &Recipient, content: &str) -> Result<(), Box<dyn std::error::Error>> {
     let smtp_host = &config.smtp.host;
-    let smtp_port = config.smtp.port;
+    let smtp_port = config.smtp.port;  // 端口应为 465 (SSL) 或 587 (TLS)
     let smtp_username = &config.smtp.username;
     let smtp_password = &config.smtp.password;
     let from_email = &config.smtp.from_email;
@@ -17,14 +17,26 @@ pub async fn send_email(config: &Config, recipient: &Recipient, content: &str) -
         .subject("Important Update")
         .body(content.to_string())?;
 
-    // SMTP 客户端配置
+    // SMTP 客户端配置，启用 TLS/SSL 加密
     let creds = Credentials::new(smtp_username.to_string(), smtp_password.to_string());
+
+    // 使用 TLS 或 SSL 连接
     let mailer = SmtpTransport::relay(smtp_host)?
         .port(smtp_port)
         .credentials(creds)
         .build();
 
     // 发送邮件
-    mailer.send(&email).await?;
-    Ok(())
+    let result = mailer.send(&email);
+
+    match result {
+        Ok(response) => {
+            println!("Email sent successfully: {:?}", response);
+            Ok(())
+        }
+        Err(err) => {
+            println!("Error sending email: {:?}", err);
+            Err(Box::new(err))
+        }
+    }
 }
