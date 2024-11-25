@@ -1,6 +1,5 @@
 use serde::{Deserialize};
 use std::fs;
-use std::path::Prefix;
 
 #[derive(Debug, Deserialize)]
 pub struct SmtpConfig {
