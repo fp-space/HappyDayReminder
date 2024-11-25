@@ -6,14 +6,10 @@ use crate::config::load_config;
 use crate::mailer::send_email;
 use crate::template::render_template;
 use std::collections::HashMap;
-use tokio;
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 加载配置
     let config = load_config("config.yaml")?;
-
-    println!("{:?}", config);
 
     // 遍历收件人列表
     for recipient in &config.recipients {
@@ -25,7 +21,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let content = render_template(&config.template_path, &context)?;
 
         // 发送邮件
-        send_email(&config, recipient, &content).await?;
+        send_email(&config, recipient, &content)?;
         println!("Email sent to: {}", recipient.email);
     }
 
