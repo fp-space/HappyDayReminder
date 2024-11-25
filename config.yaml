@@ -1,0 +1,14 @@
+smtp:
+  host: "smtp.example.com"
+  port: 587
+  username: "your_username"
+  password: "your_password"
+  from_email: "sender@example.com"
+
+recipients:
+  - name: "John Doe"
+    email: "john.doe@example.com"
+  - name: "Jane Smith"
+    email: "jane.smith@example.com"
+
+template_path: "email_template.hbs"
