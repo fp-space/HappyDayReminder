@@ -4,6 +4,7 @@ use crate::template::render_template;
 use chrono::{Datelike, Duration, NaiveDate};
 use serde_json;
 use std::collections::HashMap;
+use serde_json::Value;
 
 // 模式1：单独发送邮件给过生日的人
 pub(crate) async fn send_individual_emails(config: &config::Config, today: NaiveDate) -> Result<(), Box<dyn std::error::Error>> {
@@ -15,8 +16,9 @@ pub(crate) async fn send_individual_emails(config: &config::Config, today: Naive
         if reminder_date.month() == birthday.month() && reminder_date.day() == birthday.day() {
             // 创建邮件上下文
             let mut context = HashMap::new();
-            context.insert("name".to_string(), recipient.name.clone());
-            context.insert("is_summary".to_string(), "false".to_string()); // Mark as individual email
+            context.insert("name".to_string(), Value::String(recipient.name.clone()));
+            context.insert("sender".to_string(), Value::String(config.smtp.username.clone()));
+            context.insert("is_summary".to_string(), Value::Bool(false)); // 使用布尔类型
 
             // 渲染模板并发送邮件
             let content = render_template(&config.template_path, &context)?;
@@ -48,9 +50,9 @@ pub(crate) async fn send_summary_email(config: &config::Config, today: NaiveDate
     if !birthdays_within_reminder.is_empty() {
         // 创建汇总邮件上下文
         let mut context = HashMap::new();
-        context.insert("is_summary".to_string(), "true".to_string()); // Mark as summary email
-        context.insert("reminder_days".to_string(), config.smtp.reminder_days.to_string());
-        context.insert("birthdays".to_string(), serde_json::to_string(&birthdays_within_reminder)?);
+        context.insert("is_summary".to_string(), Value::Bool(true)); // 使用布尔类型
+        context.insert("reminder_days".to_string(), Value::String(config.smtp.reminder_days.to_string()));
+        context.insert("birthdays".to_string(), Value::String(serde_json::to_string(&birthdays_within_reminder)?)); // 将字符串转换为 Value::String
 
         // 渲染模板
         let summary_content = render_template(&config.template_path, &context)?;

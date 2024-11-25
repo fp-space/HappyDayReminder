@@ -1,5 +1,6 @@
 use lettre::{SmtpTransport, Transport};
 use lettre::message::{Mailbox, Message};
+use lettre::message::header::ContentType;
 use lettre::transport::smtp::authentication::Credentials;
 use crate::config::{Config, Recipient};
 
@@ -14,7 +15,8 @@ pub async fn send_email(config: &Config, recipient: &Recipient, content: &str) -
     let email = Message::builder()
         .from(from_email.parse::<Mailbox>()?)
         .to(recipient.email.parse::<Mailbox>()?)
-        .subject("Important Update")
+        .subject("Happy Birthday 🎉")
+        .header(ContentType::TEXT_PLAIN)
         .body(content.to_string())?;
 
     // SMTP 客户端配置

@@ -1,19 +1,32 @@
 {{#if is_summary}}
-    Hello,
+    您好，
 
-    Here is the list of upcoming birthdays within {{reminder_days}} days:
+    以下是即将过生日的人，提醒他们将在 {{reminder_days}} 天内过生日：
 
     {{#each birthdays}}
         - {{name}} ({{email}})
     {{/each}}
 
-    Best regards,
-    Your Reminder Service
+    此致，
+    您的朋友
+    —— 生日提醒服务
 {{else}}
-    Dear {{name}},
+    亲爱的 {{name}},
 
-    Happy Birthday to you! 🎉
+    生日的钟声再次响起，愿这一天的阳光洒满你的笑脸。
+    在这特别的日子里，送上一份最真挚的祝福——
 
-    Best wishes,
-    Your Reminder Service
+    “愿你此生欢喜无忧，岁月静好，愿你如松如柏，历尽风霜仍坚韧挺拔。” 🌸
+
+    或许，这一刻，你也能感受到那份来自大自然的祝福：
+    “桃花依旧笑春风，绿杨烟外晓寒轻。”
+    不论时光如何流转，愿你心中的那份美好如春风一样常在。
+
+    在你的生日，我只希望你能继续走向自己心中的光明，勇敢地面对未来的一切挑战。
+    生日快乐！🎉
+
+    愿你新的一岁，前程似锦，心想事成，所有的美好都不负你。
+
+    祝福你，
+    —— 你的朋友 {{ sender }}
 {{/if}}

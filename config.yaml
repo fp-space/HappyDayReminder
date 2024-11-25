@@ -1,14 +1,18 @@
 smtp:
-  host: "smtp.example.com"
-  port: 587
-  username: "your_username"
-  password: "your_password"
-  from_email: "sender@example.com"
+  host: "smtp.qq.com"
+  port: 465
+  username: "xxxx@qq.com"
+  password: "xxxxx"
+  from_email: "xxxx@qq.com"
+  mode: "individual" # 模式有 "summary"【发送给自己】 和 "individual"【发送给接收者】
+  reminder_days: 3
 
 recipients:
-  - name: "John Doe"
-    email: "john.doe@example.com"
-  - name: "Jane Smith"
-    email: "jane.smith@example.com"
+  - name: "xxxx@qq.com"
+    email: "xxxx@qq.com"
+    birthday: "2024-11-28"
+  - name: "xxxx@qq.com"
+    email: "xxxx@qq.com"
+    birthday: "2024-11-28"
 
 template_path: "email_template.hbs"
