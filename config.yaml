@@ -1,14 +1,14 @@
 smtp:
-  host: "smtp.example.com"
-  port: 587
-  username: "your_username"
-  password: "your_password"
-  from_email: "sender@example.com"
+  host: "smtp.qq.com"
+  port: 465
+  username: "2025502568@qq.com"
+  password: "kjjckuicmrfzeicc"
+  from_email: "2025502568@qq.com"
 
 recipients:
-  - name: "John Doe"
-    email: "john.doe@example.com"
-  - name: "Jane Smith"
-    email: "jane.smith@example.com"
+  - name: "2025502568@qq.com"
+    email: "2025502568@qq.com"
+  - name: "2025502568@qq.com"
+    email: "2025502568@qq.com"
 
 template_path: "email_template.hbs"
