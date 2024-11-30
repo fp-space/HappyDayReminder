@@ -4,3 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+chrono = "0.4.38"
+lettre = "0.11.10"
+serde = { version = "1.0.215", features = ["derive"] }
+serde_yaml = "0.9.34"
+tyme4rs = "1.1.5"
