@@ -8,29 +8,27 @@ pub struct SmtpConfig {
     pub port: u16,
     pub username: String,
     pub password: String,
-    pub from_email: String,
-    pub mode: String,
 }
 
 // 定义收件人结构体
 #[derive(Debug, Deserialize)]
 pub struct Recipient {
     pub name: String,
-    pub email: String,
     pub birthday: String,
-    reminder_days: Option<i32>,
+    pub calendar_type: Option<String>, // 可选，日历类型，默认为公历"solar"，不然就是农历"lunar"
+    reminder_days: Option<i32>, // 可选，提前提醒天数，默认为0（当天提醒）
 }
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
     pub smtp: SmtpConfig,
-    pub recipients: Vec<Recipient>,
-    pub template_path: String,
+    pub recipients: Vec<Recipient>
 }
 
-pub fn load_config(file_path: &str) -> Result<Config, Box<dyn std::error::Error>> {
-    println!("加载配置文件: {}", file_path);
-    let contents = fs::read_to_string(file_path)?;
+pub fn load_config(config_path: &str) -> Result<Config, Box<dyn std::error::Error>> {
+    println!("加载配置文件: {}", config_path);
+    // 后面+?表示如果出错，直接返回错误
+    let contents = fs::read_to_string(config_path)?;
     let config: Config = serde_yaml::from_str(&contents)?;
     Ok(config)
 }
