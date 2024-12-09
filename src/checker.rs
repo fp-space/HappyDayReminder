@@ -1,7 +1,5 @@
 use crate::config::Recipient;
 use chrono::*;
-use chrono::{DateTime, Utc};
-use tyme4rs::tyme::lunar::{self, LunarDay};
 use tyme4rs::tyme::solar::SolarDay;
 
 pub struct BirthdayChecker {
@@ -15,7 +13,7 @@ impl BirthdayChecker {
 
     // 获取今天生日的人
     pub fn get_birthday_people(&self) -> Vec<&Recipient> {
-        let mut today = SolarDay::from_ymd(
+        let today = SolarDay::from_ymd(
             Local::now().naive_local().date().year() as isize,
             Local::now().naive_local().date().month() as usize,
             Local::now().naive_local().date().day() as usize,
