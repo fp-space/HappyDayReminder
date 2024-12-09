@@ -24,18 +24,6 @@ pub fn render_email_content(template_name: &str, birthday_people: Vec<&Recipient
         .render(template_name, &data)
         .expect("Failed to render template")
 
-    // let mut handlebars = Handlebars::new();
-    // handlebars
-    //     .register_template_file("birthday", "templates/birthday.hbs")
-    //     .unwrap();
-
-    // let data = json!({
-    //     "date": Local::now().format("%Y-%m-%d").to_string(),
-    //     "birthday_people": birthday_people
-    // });
-
-    // let content = handlebars.render("birthday", &data).unwrap();
-    // println!("生成的邮件内容:\n{}", content);
 }
 
 

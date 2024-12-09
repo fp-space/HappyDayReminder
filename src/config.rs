@@ -26,7 +26,6 @@ pub struct Config {
 }
 
 pub fn load_config(config_path: &str) -> Result<Config, Box<dyn std::error::Error>> {
-    println!("加载配置文件: {}", config_path);
     // 后面+?表示如果出错，直接返回错误
     let contents = fs::read_to_string(config_path)?;
     let config: Config = serde_yaml::from_str(&contents)?;

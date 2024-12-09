@@ -13,11 +13,10 @@ fn main() {
     // 遍历收件人，获取今天生日的人
     let checker = BirthdayChecker::new(config.recipients);
     let birthday_people = checker.get_birthday_people();
-    println!("今天生日的人：{:?}", birthday_people);
 
     // 通过模板渲染邮件内容
     let content = template::render_email_content("birthday_template", birthday_people);
-    println!("生成的邮件内容:\n{}", content);
+    println!("\n生成邮件内容:\n{}", content);
 
     // 发送邮件
 }
