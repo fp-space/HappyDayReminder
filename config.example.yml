@@ -12,4 +12,3 @@ recipients:
     birthday: "2024-12-09"
     # reminder_days: 3 # 提前几天提醒
 
-template_path: "email_template.hbs"
