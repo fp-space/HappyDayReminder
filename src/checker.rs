@@ -41,12 +41,10 @@ fn is_birthday_today(recipient: &Recipient, today: &SolarDay) -> bool {
             if birthday.get_lunar_day().get_month() == today.get_lunar_day().get_month()
                 && birthday.get_lunar_day().get_day() == today.get_lunar_day().get_day()
             {
-                println!("农历生日");
                 return true;
             }
         } else {
             if birthday.get_month() == today.get_month() && birthday.get_day() == today.get_day() {
-                println!("公历生日");
                 return true;
             }
         }

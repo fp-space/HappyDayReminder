@@ -2,9 +2,8 @@ mod checker;
 mod config;
 use checker::BirthdayChecker;
 use config::load_config;
-use handlebars::Handlebars;
-use serde_json::json;
-use chrono::Local;
+mod template;
+
 
 
 fn main() {
@@ -16,18 +15,8 @@ fn main() {
     let birthday_people = checker.get_birthday_people();
     println!("今天生日的人：{:?}", birthday_people);
 
-    // 整合到模板中
-    let mut handlebars = Handlebars::new();
-    handlebars
-        .register_template_file("birthday", "templates/birthday.hbs")
-        .unwrap();
-
-    let data = json!({
-        "date": Local::now().format("%Y-%m-%d").to_string(),
-        "birthday_people": birthday_people
-    });
-
-    let content = handlebars.render("birthday", &data).unwrap();
+    // 通过模板渲染邮件内容
+    let content = template::render_email_content("birthday_template", birthday_people);
     println!("生成的邮件内容:\n{}", content);
 
     // 发送邮件
