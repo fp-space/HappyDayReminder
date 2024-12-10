@@ -1,7 +1,8 @@
 [package]
-name = "birthday_bot"
+name = "HappyDayReminder"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.70"
 
 [dependencies]
 chrono = "0.4.38"

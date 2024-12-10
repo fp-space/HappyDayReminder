@@ -26,4 +26,3 @@ pub fn render_email_content(template_name: &str, birthday_people: Vec<&Recipient
 
 }
 
-
