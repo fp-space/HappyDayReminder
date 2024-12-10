@@ -6,8 +6,10 @@ use std::fs;
 pub struct SmtpConfig {
     pub host: String,
     pub port: u16,
-    pub username: String,
-    pub password: String,
+    pub username: String, // 发件人邮箱
+    pub password: String, // 授权码
+    pub to_email: String, // 收件人邮箱
+    pub subject: String,  // 邮件主题
 }
 
 // 定义收件人结构体

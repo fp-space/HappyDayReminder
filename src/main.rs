@@ -1,8 +1,10 @@
 mod checker;
+mod template;
 mod config;
+mod smtp;
 use checker::BirthdayChecker;
 use config::load_config;
-mod template;
+use smtp::send_email;
 
 
 
@@ -19,4 +21,9 @@ fn main() {
     println!("\n生成邮件内容:\n{}", content);
 
     // 发送邮件
+    if let Err(e) = smtp::send_email(&config.smtp, &content) {
+        eprintln!("发送邮件失败: {}", e);
+    } else {
+        println!("邮件发送成功！");
+    }
 }

@@ -3,6 +3,8 @@ smtp:
   port: 465 # 25, 465, 587
   username: "xxxx@qq.com" # 发送邮件的邮箱
   password: "xxxxx" # 发送邮件的邮箱密码/smtp授权码
+  to_email: "" # 接收邮件的邮箱
+  subject: "生日提醒" # 邮件标题
 
 recipients:
   - name: "用户1"
