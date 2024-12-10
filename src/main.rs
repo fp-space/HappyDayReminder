@@ -1,27 +1,29 @@
-mod config;
-mod mailer;
+mod checker;
 mod template;
-mod email_handler;
+mod config;
+mod smtp;
+use checker::BirthdayChecker;
+use config::load_config;
+use smtp::send_email;
 
-use crate::config::load_config;
-use tokio;
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // 加载配置
-    let config = load_config("config.yaml")?;
 
-    // 获取当前日期
-    let today = chrono::Local::now().naive_local().date(); // Use NaiveDate, not NaiveDateTime
+fn main() {
+    // 加载配置文件
+    let config = load_config("config.yml").unwrap();
 
-    match config.smtp.mode.as_str() {
-        "individual" => email_handler::send_individual_emails(&config, today).await?,
-        "summary" => email_handler::send_summary_email(&config, today).await?,
-        _ => {
-            println!("Unsupported mode: {}", config.smtp.mode);
-        }
+    // 遍历收件人，获取今天生日的人
+    let checker = BirthdayChecker::new(config.recipients);
+    let birthday_people = checker.get_birthday_people();
+
+    // 通过模板渲染邮件内容
+    let content = template::render_email_content("birthday_template", birthday_people);
+    println!("\n生成邮件内容:\n{}", content);
+
+    // 发送邮件
+    if let Err(e) = smtp::send_email(&config.smtp, &content) {
+        eprintln!("发送邮件失败: {}", e);
+    } else {
+        println!("邮件发送成功！");
     }
-
-    Ok(())
 }
-

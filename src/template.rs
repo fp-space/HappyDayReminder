@@ -1,13 +1,28 @@
-use handlebars::Handlebars;
-use std::collections::HashMap;
-use std::fs;
-use serde_json::Value;
+// 通过模板渲染生成html
 
-pub fn render_template(template_path: &str, context: &HashMap<String, Value>) -> Result<String, Box<dyn std::error::Error>> {
+use handlebars::Handlebars;
+use serde_json::json;
+use chrono::Local;
+use crate::config::Recipient;
+
+pub fn render_email_content(template_name: &str, birthday_people: Vec<&Recipient>) -> String {
     let mut handlebars = Handlebars::new();
-    let template = fs::read_to_string(template_path)?;
-    handlebars.register_template_string("email_template", template)?;
-    print!("{:?} \n", context);
-    let rendered = handlebars.render("email_template", &context)?;
-    Ok(rendered)
+
+    // 处理数据
+    let data = json!({
+        "birthday_people": birthday_people,
+        "date": Local::now().format("%Y-%m-%d").to_string(),
+    });
+    
+    // 注册模板
+    handlebars
+        .register_template_file(template_name, format!("templates/{}.hbs", template_name))
+        .expect("Failed to register template");
+
+    // 渲染模板
+    handlebars
+        .render(template_name, &data)
+        .expect("Failed to render template")
+
 }
+
