@@ -2,6 +2,7 @@
 use crate::config::SmtpConfig;
 use lettre::transport::smtp::authentication::Credentials;
 use lettre::{Message, SmtpTransport, Transport};
+use lettre::message::{header, MultiPart, SinglePart};
 use std::error::Error;
 
 pub fn send_email(config: &SmtpConfig, content: &str) -> std::result::Result<(), Box<dyn Error>> {
@@ -10,7 +11,17 @@ pub fn send_email(config: &SmtpConfig, content: &str) -> std::result::Result<(),
         .from(config.username.parse()?)
         .to(config.to_email.parse()?)
         .subject(config.subject.clone())
-        .body(String::from(content))?;
+        // 设置MIME类型为XHTML
+        .multipart(
+            // 多选一
+            MultiPart::alternative()
+                // 构建这个单独部分的配置
+                .singlepart(
+                    SinglePart::builder()
+                        .header(header::ContentType::TEXT_HTML)
+                        .body(String::from(content))
+                )
+        )?;
 
     // 配置 SMTP 客户端
     let creds = Credentials::new(config.username.clone(), config.password.clone());
