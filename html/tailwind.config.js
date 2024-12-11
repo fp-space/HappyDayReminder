@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    , "./birthday_template.hbs"
+    , "./templates/**.hbs"
   ],
   theme: {
     extend: {},
