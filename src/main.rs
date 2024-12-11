@@ -17,6 +17,10 @@ fn main() {
     // 遍历收件人，获取今天生日的人
     let checker = BirthdayChecker::new(config.recipients);
     let birthday_people = checker.get_birthday_people();
+    if birthday_people.is_empty() {
+        println!("今天没有人过生日！");
+        return;
+    }
 
     // 通过模板渲染邮件内容
     let content = render_email_content("birthday_template", birthday_people);
