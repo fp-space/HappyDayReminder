@@ -8,12 +8,12 @@ const port = 3000;
 
 // 读取 tailwind css 文件
 const tailwindCss = fs.readFileSync(
-    path.join(__dirname, 'css/output.css'),
+    path.join(__dirname, './css/output.css'),
     'utf-8'
 );
 
 // 读取模板文件
-const templateFile = fs.readFileSync('templates/birthday_template.hbs', 'utf-8');
+const templateFile = fs.readFileSync('../templates/birthday_template.hbs', 'utf-8');
 const template = Handlebars.compile(templateFile);
 
 // 测试数据
@@ -27,8 +27,6 @@ const testData = {
 };
 
 app.get('/', (req, res) => {
-    const templateFile = fs.readFileSync('templates/birthday_template.hbs', 'utf-8');
-    const template = Handlebars.compile(templateFile);
     // 渲染模板
     const html = template(testData);
     res.send(html);

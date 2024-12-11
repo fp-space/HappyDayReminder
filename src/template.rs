@@ -10,7 +10,7 @@ pub fn render_email_content(template_name: &str, birthday_people: Vec<&Recipient
     let mut handlebars = Handlebars::new();
 
       // 读取 tailwind css 文件
-    let tailwind_css = fs::read_to_string("html/css/output.css")
+    let tailwind_css = fs::read_to_string("html/preview/css/output.css")
         .expect("Failed to read Tailwind CSS file");
 
     // 处理数据

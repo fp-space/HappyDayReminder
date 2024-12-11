@@ -1,7 +1,6 @@
 {
     "watch": [
-        "server.js",
-        "templates/*"
+        "../templates/*"
     ],
     "ext": "js,json,hbs,html,css"
 }
