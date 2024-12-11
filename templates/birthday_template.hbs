@@ -1,4 +1,22 @@
-今天是 {{date}}，
-{{#each birthday_people}}
-* {{this.name}} 过生日
-{{/each}}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>生日邮件提醒</title>
+    <link href="/css/output.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="bg-stone-400">
+        今天是 {{date}}，
+        {{#each birthday_people}}
+        <div style="margin: 10px 0;">
+            * {{this.name}} 过生日
+        </div>
+        {{/each}}
+    </div>
+
+</body>
+
+</html>

@@ -6,6 +6,9 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+// 读取css文件夹
+app.use('/css', express.static(path.join(__dirname, 'css')));
+
 // 读取模板文件
 const templateFile = fs.readFileSync('birthday_template.hbs', 'utf-8');
 const template = Handlebars.compile(templateFile);
@@ -22,23 +25,7 @@ const testData = {
 app.get('/', (req, res) => {
     // 渲染模板
     const html = template(testData);
-
-    // 包装成完整的 HTML
-    const fullHtml = `
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <meta charset="utf-8">
-                <title>生日邮件样式预览</title>
-                <style></style>
-            </head>
-            <body>
-                ${html}
-            </body>
-        </html>
-    `;
-
-    res.send(fullHtml);
+    res.send(html);
 });
 
 app.listen(port, () => {
