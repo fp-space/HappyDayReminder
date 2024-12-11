@@ -1,14 +1,12 @@
 mod checker;
-mod template;
 mod config;
 mod smtp;
+mod template;
 
 use checker::BirthdayChecker;
-use template::render_email_content;
 use config::load_config;
 use smtp::send_email;
-
-
+use template::render_email_content;
 
 fn main() {
     // 加载配置文件
