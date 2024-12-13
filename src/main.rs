@@ -20,6 +20,10 @@ fn main() {
         return;
     }
 
+    // TODO: 如果今天没人生日加上其他判断条件，就不发送邮件，配置文件中添加是否发送月度邮件的选项
+
+    // TODO: 如果今天是月末，发送本月生日的所有人的列表和下个月过生日的人的列表
+
     // 通过模板渲染邮件内容
     let content = render_email_content("birthday_template", birthday_people);
     println!("\n生成邮件内容:\n{}", content);
