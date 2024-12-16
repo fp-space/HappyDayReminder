@@ -13,6 +13,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
+
     steps:
     - name: 拉取代码
       uses: actions/checkout@v4
@@ -35,7 +40,7 @@ jobs:
     - name: Generate artifact attestation
       if: github.ref_type == 'tag' || github.event.inputs.tag_version != ''
       continue-on-error: true
-      uses: actions/attest-build-provenance@v1
+      uses: actions/attest-build-provenance@v2
       with:
         subject-path: |
           ./target/release/HappyDayReminder
