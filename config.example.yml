@@ -9,8 +9,8 @@ smtp:
 recipients:
   - name: "用户1"
     birthday: "2023-12-21" # 仅允许输入公历日期
-    calendar_type: "lunar" # lunar/solar
+    calendar_type: "lunar" # lunar/solar 默认solar（公历）
   - name: "用户2"
     birthday: "2024-12-09"
-    # reminder_days: 3 # 提前几天提醒
+    # reminder_days: 3 # 提前几天提醒 尚未实装
 

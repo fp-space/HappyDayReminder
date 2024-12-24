@@ -27,5 +27,8 @@
 
 ## 🚀 快速开始
 
-<!-- TODO: -->
+将`config.example.yml`修改为`config.yml`后，在其中修改STMP相关信息
 
+要添加好友的生日信息，只需在`recipients`字段中添加相应条目即可
+
+邮件模板文件位于`./html/templates`中，如果需要修改模板，请查看[预览电子邮件](./html/preview/README.md)
