@@ -1,20 +1,27 @@
-name: Setup Version
-description: "Setup Version"
-outputs:
-  APP_VERSION:
-    description: "App Version"
-    value: ${{ steps.version.outputs.APP_VERSION }}
+name: Run Released Version
+description: "Download and run released version"
+inputs:
+  version:
+    description: 'Version to download (默认最新)'
+    required: false
+    default: 'latest'
 runs:
   using: "composite"
   steps:
-    - name: "Write Version"
-      id: version
+    - name: Download release
       shell: bash
       run: |
-        if [ "${{ github.ref_type }}" == "tag" ]; then
-          APP_VERSION=$(echo "${{ github.ref_name }}" | sed 's/^v//')
+        if [ "${{ inputs.version }}" == "latest" ]; then
+          # 下载最新版本
+          DOWNLOAD_URL=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.assets[0].browser_download_url')
         else
-          APP_VERSION=$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].version')
+          # 下载指定版本
+          DOWNLOAD_URL=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/tags/v${{ inputs.version }} | jq -r '.assets[0].browser_download_url')
         fi
-        echo $APP_VERSION
-        echo "APP_VERSION=$APP_VERSION" >> "$GITHUB_OUTPUT"
+        
+        curl -L -o program $DOWNLOAD_URL
+        chmod +x program
+
+    - name: Run program
+      shell: bash
+      run: ./program

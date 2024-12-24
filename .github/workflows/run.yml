@@ -1,0 +1,21 @@
+name: Run Released Program
+on:
+  schedule:
+    # 每天凌晨 0:00 (UTC) 运行
+    - cron: '0 0 * * *'    # UTC 时间，对应北京时间早上8点
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download release
+        run: |
+          # 只下载最新版本，因为是自动运行不需要指定版本
+          DOWNLOAD_URL=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.assets[0].browser_download_url')
+          
+          echo "下载地址: $DOWNLOAD_URL"
+          curl -L -o program $DOWNLOAD_URL
+          chmod +x program
+
+      - name: Run program
+        run: ./program
