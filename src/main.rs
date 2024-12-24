@@ -10,7 +10,7 @@ use template::render_email_content;
 
 fn main() {
     // 加载配置文件
-    let config = load_config("config.yml").unwrap();
+    let config = load_config("config.yml").expect("无法加载配置文件");
 
     // 遍历收件人，获取今天生日的人
     let checker = BirthdayChecker::new(config.recipients);
