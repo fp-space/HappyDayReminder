@@ -28,6 +28,10 @@ jobs:
     - name: 构建项目
       run: cargo build --release
 
+    - name: 设置版本
+      id: version
+      uses: ./.github/actions/setup-version
+
     - name: 生成 SHA-256 校验码
       run: shasum -a 256 ./target/release/HappyDayReminder > ./target/release/HappyDayReminder.sha256
 
