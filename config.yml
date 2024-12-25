@@ -1,0 +1,16 @@
+smtp:
+  host: "smtp.163.com" # smtp 服务器地址
+  port: 465 # 25, 465, 587
+  username: "casdf71@163.com" # 发送邮件的邮箱
+  password: "HURBNDIGJBAQHKND" # 发送邮件的邮箱密码/smtp授权码
+  to_email: "casdf71@163.com" # 接收邮件的邮箱
+  subject: "生日提醒" # 邮件标题
+
+recipients:
+  - name: "用户1"
+    birthday: "2023-12-06" # 仅允许输入公历日期
+    calendar_type: "lunar" # lunar/solar
+  - name: "用户2"
+    birthday: "2024-12-24"
+    # reminder_days: 3 # 提前几天提醒
+
