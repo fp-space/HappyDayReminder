@@ -8,6 +8,11 @@ use config::load_config;
 use smtp::send_email;
 use template::render_email_content;
 
+// 在 Linux 系统上静态链接 C 标准库
+#[cfg(target_os = "linux")]
+#[link(name = "c", kind = "static")]
+extern "C" {}
+
 fn main() {
     // 加载配置文件
     let config = load_config("config.yml").expect("无法加载配置文件");

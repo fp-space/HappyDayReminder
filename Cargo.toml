@@ -12,3 +12,13 @@ serde = { version = "1.0.215", features = ["derive"] }
 serde_json = "1.0.133"
 serde_yaml = "0.9.34"
 tyme4rs = "1.1.5"
+
+# 添加静态链接相关配置
+[target.'cfg(target_os = "linux")'.dependencies]
+openssl = { version = "0.10", features = ["vendored"] }
+
+[profile.release]
+lto = true            # 启用链接时优化
+strip = true          # 移除调试符号
+codegen-units = 1     # 减少并行编译单元以提高优化
+opt-level = 3         # 最高优化级别
