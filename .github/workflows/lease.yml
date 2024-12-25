@@ -24,16 +24,22 @@ jobs:
 
     - name: 配置 Rust
       uses: moonrepo/setup-rust@v1
+    
+    - name: 下载依赖
+      run: sudo apt-get install musl-tools
+    
+    - name: 确定编译目标
+      run: rustup target add x86_64-unknown-linux-musl
 
     - name: 构建项目
-      run: cargo build --release
+      run: cargo build --release --target x86_64-unknown-linux-musl
 
     - name: 设置版本
       id: version
       uses: ./.github/actions/setup-version
 
     - name: 生成 SHA-256 校验码
-      run: shasum -a 256 ./target/release/HappyDayReminder > ./target/release/HappyDayReminder.sha256
+      run: shasum -a 256 ./target/x86_64-unknown-linux-musl/release/HappyDayReminder > ./target/x86_64-unknown-linux-musl/release/HappyDayReminder.sha256
 
     - name: 创建 GitHub Release
       if: github.ref_type == 'tag' || github.event.inputs.tag_version != ''
@@ -44,5 +50,5 @@ jobs:
         prerelease: true
         tag_name: v${{ steps.version.outputs.APP_VERSION }}
         files: |
-          ./target/release/HappyDayReminder
-          ./target/release/HappyDayReminder.sha256
+          ./target/x86_64-unknown-linux-musl/release/HappyDayReminder
+          ./target/x86_64-unknown-linux-musl/release/HappyDayReminder.sha256

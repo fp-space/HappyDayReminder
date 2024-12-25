@@ -3,6 +3,7 @@ on:
   schedule:
     # 每天凌晨 0:00 (UTC) 运行
     - cron: '0 0 * * *'    # UTC 时间，对应北京时间早上8点
+  workflow_dispatch:
 
 jobs:
   run:
