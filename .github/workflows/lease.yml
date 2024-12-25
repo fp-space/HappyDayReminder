@@ -11,7 +11,7 @@ on:
         required: true  # 必填项
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     permissions:
       id-token: write
