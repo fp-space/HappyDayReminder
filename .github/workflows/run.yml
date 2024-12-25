@@ -9,6 +9,9 @@ jobs:
   run:
     runs-on: ubuntu-20.04
     steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
       - name: Download release
         run: |
           # 只下载最新版本，因为是自动运行不需要指定版本
