@@ -27,7 +27,6 @@ fn main() {
 
     // 通过模板渲染邮件内容
     let content = render_email_content("birthday_template", birthday_people);
-    println!("\n生成邮件内容:\n{}", content);
 
     // 发送邮件
     if let Err(e) = send_email(&config.smtp, &content) {
