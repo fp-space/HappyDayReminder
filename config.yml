@@ -2,7 +2,7 @@ smtp:
   host: "smtp.163.com" # smtp 服务器地址
   port: 465 # 25, 465, 587
   username: "casdf71@163.com" # 发送邮件的邮箱
-  password: "HURBNDIGJBAQHKND" # 发送邮件的邮箱密码/smtp授权码
+  password: "HURBNDIGJBAQHKND" # 示例,发送邮件的邮箱密码/smtp授权码 
   to_email: "casdf71@163.com" # 接收邮件的邮箱
   subject: "生日提醒" # 邮件标题
 
